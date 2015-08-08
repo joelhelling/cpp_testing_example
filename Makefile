@@ -64,6 +64,8 @@ endif
 all: $(PROG)
 
 # build and run the tests
+test: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
+test: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
 test: test_build
 test: test_run
 # build the tests
@@ -72,16 +74,14 @@ test_build: $(TEST_PROG)
 test_run:
 	./$(TEST_PROG)
 
-test_with_code_coverage: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
-test_with_code_coverage: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
-test_with_code_coverage: test
-
-generate_code_coverage_report: test_with_code_coverage
+# generate code coverage reports
+generate_code_coverage_report: test
 generate_code_coverage_report: generate_code_coverage_report_xml
 generate_code_coverage_report: generate_code_coverage_report_html
-
+# generate a report in xml
 generate_code_coverage_report_xml:
-	gcovr --branches --xml-pretty -r .
+	gcovr --branches --xml-pretty -r . $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.xml
+# generate a report in xml
 generate_code_coverage_report_html:
 	gcovr --branches -r . --html --html-details $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.html
 
