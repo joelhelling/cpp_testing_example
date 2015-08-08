@@ -50,12 +50,15 @@ CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html)
 CODE_COVERAGE_EXCLUDE_FILES := -e 'test_'
 CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'
 
+# name of the install shell script
+INSTALL_SCRIPT := install.sh
+
 
 # use quiet output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
 ifndef V
-	# QUIET_CC		= @echo '   ' CC $@;
-	# QUIET_LINK		= @echo '   ' LD $@;
+	QUIET_CC		= @echo '   ' CC $@;
+	QUIET_LINK		= @echo '   ' LD $@;
 	export V
 endif
 endif
@@ -141,6 +144,11 @@ endef
 # include dependency files
 -include $(DEPS)
 -include $(TEST_DEPS)
+
+.PHONY: install
+install:
+	chmod +x install.sh
+	./install.sh
 
 # clean up targets
 .PHONY: clean cleanObj cleanAllObj cleanTests cleanAllExceptMainExec cleanAll cleanCodeCoverage

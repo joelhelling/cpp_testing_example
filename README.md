@@ -15,8 +15,7 @@ Install
 ```
 git clone git@github.com:spencewenski/cpp_testing_example.git
 cd cpp_testing_example
-chmod +x install.sh
-./install.sh
+make install
 ```
 
 
