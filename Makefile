@@ -83,7 +83,7 @@ generate_code_coverage_report: generate_code_coverage_report_html
 generate_code_coverage_report_xml:
 	gcovr --branches --xml-pretty -r .
 generate_code_coverage_report_html:
-	gcovr --branches -r . --html --html-details -o gcovr-report.html
+	gcovr --branches -r . --html --html-details $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.html
 
 # run the tests in debug mode
 test_debug: CCFLAGS += -g
@@ -143,7 +143,10 @@ endef
 -include $(TEST_DEPS)
 
 # clean up targets
-.PHONY: clean cleanObj cleanAllObj cleanTests cleanAllExceptMainExec cleanAll
+.PHONY: clean cleanObj cleanAllObj cleanTests cleanAllExceptMainExec cleanAll cleanCodeCoverage
+
+cleanCodeCoverage:
+	$(RM) $(CODE_COVERAGE_FILES)
 
 # remove object files and dependency files, but keep the executable
 clean:
@@ -160,11 +163,12 @@ cleanAllObj:
 
 # remove all generated test files
 cleanTests:
-	$(RM) $(TEST_PROG) $(TEST_OBJS) $(TEST_DEPS) 
+	$(RM) $(TEST_PROG) $(TEST_OBJS) $(TEST_DEPS)
 	
 # remove all generated files except for the main executable
 cleanAllExceptMainExec: cleanTests
 cleanAllExceptMainExec: clean
+cleanAllExceptMainExec: cleanCodeCoverage
 
 # remove all generated files
 cleanAll: cleanAllExceptMainExec
