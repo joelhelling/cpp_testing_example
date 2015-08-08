@@ -19,11 +19,21 @@ CODE_COVERAGE_LD_FLAGS := -lgcov -coverage
 # erase files command
 RM := rm -f
 
+# test executable
+TEST_PROG := test.out
+# test source files
+TEST_SOURCES := $(wildcard *_test.c *_test.cpp)
+# test object files
+TEST_OBJS := $(patsubst %.c, %.o, $(filter %.c, $(TEST_SOURCES)))
+TEST_OBJS += $(patsubst %.cpp, %.o, $(filter %.cpp, $(TEST_SOURCES)))
+# test dependency files
+TEST_DEPS = $(TEST_OBJS:%.o=%.d)
+
 # executable
 PROG := a.out
 # source files
 SOURCES := $(wildcard *.c *.cpp)
-SOURCES := $(filter-out $(wildcard test*), $(SOURCES))
+SOURCES := $(filter-out $(TEST_SOURCES), $(SOURCES))
 # pre-compiled object files to link against
 LINKEDOBJS := 
 # object files for each source file
@@ -34,15 +44,6 @@ OBJS_MINUS_MAIN := $(filter-out main.o, $(OBJS))
 # dependency files
 DEPS = $(OBJS:%.o=%.d)
 
-# test executable
-TEST_PROG := test.out
-# test source files
-TEST_SOURCES := $(wildcard test*.c test*.cpp)
-# test object files
-TEST_OBJS := $(patsubst %.c, %.o, $(filter %.c, $(TEST_SOURCES)))
-TEST_OBJS += $(patsubst %.cpp, %.o, $(filter %.cpp, $(TEST_SOURCES)))
-# test dependency files
-TEST_DEPS = $(TEST_OBJS:%.o=%.d)
 
 # code coverage files
 CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html gcovr-report*.xml)
