@@ -1,0 +1,4 @@
+#!/bin/sh
+
+make -f submodules/Makefiles/Makefile -C . test_build
+make -f submodules/Makefiles/Makefile -C . test_run

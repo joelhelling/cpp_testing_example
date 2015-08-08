@@ -1,0 +1,6 @@
+[submodule "submodules/Catch"]
+	path = submodules/Catch
+	url = https://github.com/philsquared/Catch.git
+[submodule "submodules/Makefiles"]
+	path = submodules/Makefiles
+	url = git@github.com:spencewenski/Makefiles.git
