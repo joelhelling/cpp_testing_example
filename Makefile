@@ -45,7 +45,7 @@ TEST_OBJS += $(patsubst %.cpp, %.o, $(filter %.cpp, $(TEST_SOURCES)))
 TEST_DEPS = $(TEST_OBJS:%.o=%.d)
 
 # code coverage files
-CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html)
+CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html gcovr-report*.xml)
 # code coverage exclude files flags
 CODE_COVERAGE_EXCLUDE_FILES := -e 'test_'
 CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'

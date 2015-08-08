@@ -13,9 +13,15 @@ Features
 Install
 -------
 ```
-git clone git@github.com:spencewenski/cpp_testing_example.git
+# clone the repo
+git clone --recursive git@github.com:spencewenski/cpp_testing_example.git
 cd cpp_testing_example
-make install
+# install pre-commit git hook
+chmod +x git_hooks/pre-commit
+ln git_hooks/pre-commit .git/hooks/
+# install code coverage
+sudo apt-get install python-pip
+sudo pip install gcovr
 ```
 
 
