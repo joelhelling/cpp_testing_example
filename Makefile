@@ -8,10 +8,14 @@ CPPFLAGS :=
 CCFLAGS := -std=c++11 -Wall -Wextra -pedantic -Wvla
 # extra compiler flags
 ECCFLAGS := 
+# code coverage compile flags
+CODE_COVERAGE_CC_FLAGS := -fprofile-arcs -ftest-coverage -fPIC -O0
 # main linker flags
 LDFLAGS := -pedantic -Wall
 # extra linker flags
 ELDFLAGS := 
+# code coverage linker flags
+CODE_COVERAGE_LD_FLAGS := -lgcov -coverage
 # erase files command
 RM := rm -f
 
@@ -40,11 +44,18 @@ TEST_OBJS += $(patsubst %.cpp, %.o, $(filter %.cpp, $(TEST_SOURCES)))
 # test dependency files
 TEST_DEPS = $(TEST_OBJS:%.o=%.d)
 
+# code coverage files
+CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html)
+# code coverage exclude files flags
+CODE_COVERAGE_EXCLUDE_FILES := -e 'test_'
+CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'
+
+
 # use quiet output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
 ifndef V
-	QUIET_CC		= @echo '   ' CC $@;
-	QUIET_LINK		= @echo '   ' LD $@;
+	# QUIET_CC		= @echo '   ' CC $@;
+	# QUIET_LINK		= @echo '   ' LD $@;
 	export V
 endif
 endif
@@ -60,6 +71,19 @@ test_build: $(TEST_PROG)
 # run the tests
 test_run:
 	./$(TEST_PROG)
+
+test_with_code_coverage: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
+test_with_code_coverage: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
+test_with_code_coverage: test
+
+generate_code_coverage_report: test_with_code_coverage
+generate_code_coverage_report: generate_code_coverage_report_xml
+generate_code_coverage_report: generate_code_coverage_report_html
+
+generate_code_coverage_report_xml:
+	gcovr --branches --xml-pretty -r .
+generate_code_coverage_report_html:
+	gcovr --branches -r . --html --html-details -o gcovr-report.html
 
 # run the tests in debug mode
 test_debug: CCFLAGS += -g
@@ -97,11 +121,11 @@ gprof: $(PROG)
 
 # rule to link program
 $(PROG): $(OBJS)
-	$(QUIET_LINK)$(LD) $(OBJS) $(LDFLAGS) $(LINKEDOBJS) $(ELDFLAGS) $(CPPFLAGS) -o $(PROG)
+	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(OBJS) $(LINKEDOBJS) -o $(PROG)
 
 # rule to link tests
 $(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS)
-	$(QUIET_LINK)$(LD) $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) $(ELDFLAGS) $(CPPFLAGS) -o $(TEST_PROG)
+	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
 
 # rule to compile object files and automatically generate dependency files
 define cc-command

@@ -31,3 +31,8 @@
 
 # Dependency files
 *.d
+
+# Code coverage files
+*.gcno
+*.gcda
+gcovr-report*.html
