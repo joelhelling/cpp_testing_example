@@ -7,6 +7,7 @@ Features
 - Sample Makefile
 - Sample test case
 - A pre-commit git hook to run all the tests
+- Code coverage support
 
 
 Install
@@ -22,15 +23,23 @@ chmod +x install.sh
 Build the project
 -----------------
 ```
-make -f submodules/Makefiles/Makefile -C .
+make
 ```
 
 
 Run the tests
 -------------
 ```
-make -f submodules/Makefiles/Makefile -C . test
+make test
 ```
+
+
+Generating a code coverage report
+---------------------------------
+```
+make generate_code_coverage_report
+```
+Then open the generated report (gcovr-report.html) in your browser.
 
 
 Committing changes
