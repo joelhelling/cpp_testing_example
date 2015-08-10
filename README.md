@@ -84,7 +84,7 @@ run the tests. If any tests fail, git will abort the commit.
 
 References
 ----------
-(Google Test)[https://code.google.com/p/googletest/]
-(Google Mock)[https://code.google.com/p/googlemock/]
-(Code Coverage)[http://gcovr.com/]
+[Google Test](https://code.google.com/p/googletest/)
+[Google Mock](https://code.google.com/p/googlemock/)
+[Code Coverage](http://gcovr.com/)
 
