@@ -1,13 +1,14 @@
 CPP Testing Example
 ===================
-This is an example of how to set up the Catch testing framework for a project.
+This is an example of how to set up Google testing frameworks for a project.
 
 Features
 --------
 - Sample Makefile
-- Sample test case
+- Sample test cases (Google Test)
 - A pre-commit git hook to run all the tests
 - Code coverage support
+- Mocking support (Google Mock)
 
 
 Install
