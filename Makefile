@@ -66,6 +66,7 @@ ifneq ($(findstring $(MAKEFLAGS),s),s)
 ifndef V
 	QUIET_CC		= @echo '   ' CC $@;
 	QUIET_LINK		= @echo '   ' LD $@;
+	QUIET_CODE_COVERAGE = @echo '    ' $@;
 	export V
 endif
 endif
@@ -92,10 +93,10 @@ generate_code_coverage_report: generate_code_coverage_report_xml
 generate_code_coverage_report: generate_code_coverage_report_html
 # generate a report in xml
 generate_code_coverage_report_xml:
-	gcovr --branches --xml-pretty -r . $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.xml
+	$(QUIET_CODE_COVERAGE)gcovr --branches --xml-pretty -r . $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.xml
 # generate a report in xml
 generate_code_coverage_report_html:
-	gcovr --branches -r . --html --html-details $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.html
+	$(QUIET_CODE_COVERAGE)gcovr --branches -r . --html --html-details $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.html
 
 # run the tests in debug mode
 test_debug: CCFLAGS += -g
