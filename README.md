@@ -64,12 +64,23 @@ make test
 ```
 
 
-Generating a code coverage report
+Code coverage
 ---------------------------------
+Generating a code coverage report
 ```
 make generate_code_coverage_report
 ```
 Then open the generated report (gcovr-report.html) in your browser.
+
+Or, use the check_code_coverage script to verify the code coverage percentage.
+```
+# make sure the script is executable
+chmod +x git_hooks/check_code_coverage.sh
+# run the script
+./git_hooks/check_code_coverage.sh
+```
+Set the minimum acceptable code coverage percentage by changing the
+MINIMUM_COVERAGE_PERCENTAGE variable in the script.
 
 
 Committing changes
