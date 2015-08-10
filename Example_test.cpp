@@ -1,13 +1,13 @@
 #include "Example.h"
 #include "gtest/gtest.h"
 
-const int test_val = 12;
 
 class ExampleTest : public testing::Test {
 protected:
   // virtual void SetUp();
   // virtual void TearDown();
 
+  const int test_val = 12;
   Example example{test_val};
 };
 
