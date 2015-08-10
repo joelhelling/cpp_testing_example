@@ -4,11 +4,12 @@ This is an example of how to set up Google testing frameworks for a project.
 
 Features
 --------
-- Sample Makefile
-- Sample test cases (Google Test)
-- A pre-commit git hook to run all the tests
-- Code coverage support
+- Testing Support (Google Test)
 - Mocking support (Google Mock)
+- Code coverage support
+- Sample Makefile
+- Sample test cases
+- A pre-commit git hook to run all the tests and check code coverage
 
 
 Install
