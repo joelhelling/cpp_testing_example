@@ -55,6 +55,7 @@ CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html gcovr-report*
 CODE_COVERAGE_EXCLUDE_FILES := $(foreach test_source, $(TEST_SOURCES),-e '$(test_source)')
 CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'
 CODE_COVERAGE_EXCLUDE_FILES += -e '.test/'
+CODE_COVERAGE_EXCLUDE_FILES += -e 'gmock/'
 
 # name of the install shell script
 INSTALL_SCRIPT := install.sh
