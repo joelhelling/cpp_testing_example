@@ -16,7 +16,7 @@ CODE_COVERAGE_CC_FLAGS := -fprofile-arcs -ftest-coverage -fPIC -O0
 # main linker flags
 LDFLAGS := -pedantic -Wall
 # extra linker flags
-ELDFLAGS := gtest_main.a
+ELDFLAGS :=
 # code coverage linker flags
 CODE_COVERAGE_LD_FLAGS := -lgcov -coverage
 # erase files command
@@ -135,11 +135,11 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
 gtest-all.o : $(GTEST_SRCS_)
-	$(QUIET_CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
+	$(QUIET_CC)$(CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest-all.cc
 
 gtest_main.o : $(GTEST_SRCS_)
-	$(QUIET_CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
+	$(QUIET_CC)$(CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest_main.cc
 
 gtest.a : gtest-all.o
@@ -155,7 +155,7 @@ $(PROG): $(OBJS)
 
 # rule to link tests
 $(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) gtest_main.a $(GTEST_HEADERS)
-	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
+	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) gtest_main.a $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
 
 # rule to compile object files and automatically generate dependency files
 define cc-command
@@ -209,3 +209,6 @@ cleanAllExceptMainExec: cleanCodeCoverage
 cleanAll: cleanAllExceptMainExec
 cleanAll:
 	$(RM) $(PROG)
+
+cleanGoogleTest:
+	$(RM) gtest*.o gtest*.a
