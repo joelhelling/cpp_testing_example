@@ -4,7 +4,7 @@ Example::Example(int val_)
 : val{val_}
 {}
 
-int Example::get_val()
+int Example::get_val() const
 {
   return val;
 }

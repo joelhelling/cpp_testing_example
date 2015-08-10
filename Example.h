@@ -5,7 +5,7 @@ class Example {
 public:
   Example(int val_ = 0);
 
-  int get_val();
+  int get_val() const;
   void set_val(int val_);
 
 private:

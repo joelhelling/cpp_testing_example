@@ -40,3 +40,4 @@ gcovr-report*.xml
 
 # google test
 gtest/
+gmock/

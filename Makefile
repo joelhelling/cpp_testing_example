@@ -1,12 +1,13 @@
-# google test directory
+# google test directories
 GTEST_DIR := gtest
+GMOCK_DIR := gmock
 
 # compiler
 CC := g++
 # linker
 LD := g++
 # preprocessor flags
-CPPFLAGS := -isystem $(GTEST_DIR)/include
+CPPFLAGS := -isystem $(GMOCK_DIR)/include -isystem $(GTEST_DIR)/include
 # main compiler flags
 CCFLAGS := -std=c++11 -Wall -Wextra -pedantic -Wvla
 # extra compiler flags
@@ -148,14 +149,35 @@ gtest.a : gtest-all.o
 gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
+# compile google mock
+GMOCK_HEADERS = $(GMOCK_DIR)/include/gmock/*.h \
+                $(GMOCK_DIR)/include/gmock/internal/*.h \
+                $(GTEST_HEADERS)
+
+GMOCK_SRCS_ = $(GMOCK_DIR)/src/*.cc $(GMOCK_HEADERS)
+
+gmock-all.o : $(GMOCK_SRCS_)
+	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) -I$(GMOCK_DIR) $(CXXFLAGS) \
+            -c $(GMOCK_DIR)/src/gmock-all.cc
+
+gmock_main.o : $(GMOCK_SRCS_)
+	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) -I$(GMOCK_DIR) $(CXXFLAGS) \
+            -c $(GMOCK_DIR)/src/gmock_main.cc
+
+gmock.a : gmock-all.o gtest-all.o
+	$(AR) $(ARFLAGS) $@ $^
+
+gmock_main.a : gmock-all.o gtest-all.o gmock_main.o
+	$(AR) $(ARFLAGS) $@ $^
+
 
 # rule to link program
 $(PROG): $(OBJS)
 	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(OBJS) $(LINKEDOBJS) -o $(PROG)
 
 # rule to link tests
-$(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) gtest_main.a $(GTEST_HEADERS)
-	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) gtest_main.a $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
+$(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) gmock_main.a $(GTEST_HEADERS) $(GMOCK_HEADERS)
+	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) gmock_main.a $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
 
 # rule to compile object files and automatically generate dependency files
 define cc-command
@@ -211,4 +233,4 @@ cleanAll:
 	$(RM) $(PROG)
 
 cleanGoogleTest:
-	$(RM) gtest*.o gtest*.a
+	$(RM) gtest*.o gtest*.a gmock*.o gmock*.a
