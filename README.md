@@ -13,8 +13,17 @@ Features
 
 Install
 -------
-Run these commands
+Run the setup script
 
+```
+# clone the repo
+git clone git@github.com:spencewenski/cpp_testing_example.git
+cd cpp_testing_example
+# run the setup script
+make setup
+```
+
+Or run these commands
 ```
 # clone the repo
 git clone git@github.com:spencewenski/cpp_testing_example.git
@@ -37,16 +46,6 @@ mv gtest-1.7.0 gtest
 rm gtest-1.7.0.zip
 # install tool for parsing html
 sudo apt-get install html-xml-utils
-```
-
-Or run the setup script
-
-```
-# clone the repo
-git clone git@github.com:spencewenski/cpp_testing_example.git
-cd cpp_testing_example
-# run the setup script
-make setup
 ```
 
 
@@ -87,4 +86,3 @@ References
 [Google Test](https://code.google.com/p/googletest/)  
 [Google Mock](https://code.google.com/p/googlemock/)  
 [Code Coverage](http://gcovr.com/)  
-
