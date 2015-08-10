@@ -80,3 +80,11 @@ git commit -m 'message'
 ```
 The pre-commit hook will run before the commit is finalized. The hook will
 run the tests. If any tests fail, git will abort the commit.
+
+
+References
+----------
+(Google Test)[https://code.google.com/p/googletest/]
+(Google Mock)[https://code.google.com/p/googlemock/]
+(Code Coverage)[http://gcovr.com/]
+
