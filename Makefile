@@ -58,7 +58,7 @@ CODE_COVERAGE_EXCLUDE_FILES += -e '.test/'
 CODE_COVERAGE_EXCLUDE_FILES += -e 'gmock/'
 
 # name of the install shell script
-INSTALL_SCRIPT := install.sh
+SETUP_SCRIPT := setup.sh
 
 
 # use quiet output
@@ -195,10 +195,10 @@ endef
 -include $(DEPS)
 -include $(TEST_DEPS)
 
-.PHONY: install
-install:
-	chmod +x install.sh
-	./install.sh
+.PHONY: setup
+setup:
+	chmod +x $(SETUP_SCRIPT)
+	./$(SETUP_SCRIPT)
 
 # clean up targets
 .PHONY: clean cleanObj cleanAllObj cleanTests cleanAllExceptMainExec cleanAll cleanCodeCoverage
