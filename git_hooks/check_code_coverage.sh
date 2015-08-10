@@ -7,6 +7,11 @@
 # set the minimuc code coverage percentage
 MINIMUM_COVERAGE_PERCENTAGE=100
 
+# colors
+RED=`tput setaf 1`
+GREEN=`tput setaf 2`
+NO_COLOR=`tput sgr0`
+
 # generate the code coverage report
 make generate_code_coverage_report
 
@@ -42,7 +47,7 @@ function line_compare {
       then
         return
     else
-      echo 'Code coverage is below the required minimum percentage. Please check the coverage report in gcovr-report.*'
+      echo "${RED}Code coverage is below the required minimum percentage. Please check the coverage report in gcovr-report.*${NO_COLOR}"
       clean
       exit 1
   fi
@@ -53,4 +58,4 @@ line_compare 4 5
 
 clean
 
-printf "\nCode coverage check was successful! Thanks for writing great tests!\n\n"
+printf "\n${GREEN}Code coverage check was successful! Thanks for writing great tests!${NO_COLOR}\n\n"

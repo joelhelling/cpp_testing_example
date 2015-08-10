@@ -79,7 +79,7 @@ chmod +x git_hooks/check_code_coverage.sh
 # run the script
 ./git_hooks/check_code_coverage.sh
 ```
-Set the minimum acceptable code coverage percentage by changing the
+Set the minimum required code coverage percentage by changing the
 MINIMUM_COVERAGE_PERCENTAGE variable in the script.
 
 
@@ -90,7 +90,8 @@ git add .
 git commit -m 'message'
 ```
 The pre-commit hook will run before the commit is finalized. The hook will
-run the tests. If any tests fail, git will abort the commit.
+run the tests and check code coverage. If any tests fail or the code coverage
+percentage is below the minimum required, git will abort the commit.
 
 
 References
