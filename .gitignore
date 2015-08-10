@@ -37,3 +37,6 @@
 *.gcda
 gcovr-report*.html
 gcovr-report*.xml
+
+# google test
+gtest/

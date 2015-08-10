@@ -1,9 +1,12 @@
+# google test directory
+GTEST_DIR := gtest
+
 # compiler
 CC := g++
 # linker
 LD := g++
 # preprocessor flags
-CPPFLAGS :=
+CPPFLAGS := -isystem $(GTEST_DIR)/include
 # main compiler flags
 CCFLAGS := -std=c++11 -Wall -Wextra -pedantic -Wvla
 # extra compiler flags
@@ -13,7 +16,7 @@ CODE_COVERAGE_CC_FLAGS := -fprofile-arcs -ftest-coverage -fPIC -O0
 # main linker flags
 LDFLAGS := -pedantic -Wall
 # extra linker flags
-ELDFLAGS := 
+ELDFLAGS := gtest_main.a
 # code coverage linker flags
 CODE_COVERAGE_LD_FLAGS := -lgcov -coverage
 # erase files command
@@ -48,7 +51,7 @@ DEPS = $(OBJS:%.o=%.d)
 # code coverage files
 CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html gcovr-report*.xml)
 # code coverage exclude files flags
-CODE_COVERAGE_EXCLUDE_FILES := -e 'test_'
+CODE_COVERAGE_EXCLUDE_FILES := -e '_test.cpp'
 CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'
 
 # name of the install shell script
@@ -68,8 +71,10 @@ endif
 all: $(PROG)
 
 # build and run the tests
-test: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
-test: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
+# test: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
+# test: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
+test: CCFLAGS += -pthread
+test: LDFLAGS += -pthread
 test: test_build
 test: test_run
 # build the tests
@@ -123,12 +128,32 @@ test_gprof: test
 gprof: CCFLAGS += -g -pg
 gprof: $(PROG)
 
+# compile google test
+GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
+                $(GTEST_DIR)/include/gtest/internal/*.h
+GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
+
+gtest-all.o : $(GTEST_SRCS_)
+	$(QUIET_CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
+            $(GTEST_DIR)/src/gtest-all.cc
+
+gtest_main.o : $(GTEST_SRCS_)
+	$(QUIET_CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
+            $(GTEST_DIR)/src/gtest_main.cc
+
+gtest.a : gtest-all.o
+	$(AR) $(ARFLAGS) $@ $^
+
+gtest_main.a : gtest-all.o gtest_main.o
+	$(AR) $(ARFLAGS) $@ $^
+
+
 # rule to link program
 $(PROG): $(OBJS)
 	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(OBJS) $(LINKEDOBJS) -o $(PROG)
 
 # rule to link tests
-$(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS)
+$(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) gtest_main.a $(GTEST_HEADERS)
 	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
 
 # rule to compile object files and automatically generate dependency files

@@ -1,5 +1,5 @@
-#ifndef EXAMPLE
-#define EXAMPLE
+#ifndef EXAMPLE_H
+#define EXAMPLE_H
 
 class Example {
 public:
@@ -12,4 +12,4 @@ private:
   int val;
 };
 
-#endif /*EXAMPLE*/
+#endif /*EXAMPLE_H*/
