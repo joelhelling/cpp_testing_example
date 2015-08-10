@@ -51,8 +51,9 @@ DEPS = $(OBJS:%.o=%.d)
 # code coverage files
 CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html gcovr-report*.xml)
 # code coverage exclude files flags
-CODE_COVERAGE_EXCLUDE_FILES := -e '_test.cpp'
+CODE_COVERAGE_EXCLUDE_FILES := $(foreach test_source, $(TEST_SOURCES),-e '$(test_source)')
 CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'
+CODE_COVERAGE_EXCLUDE_FILES += -e '.test/'
 
 # name of the install shell script
 INSTALL_SCRIPT := install.sh
@@ -71,8 +72,8 @@ endif
 all: $(PROG)
 
 # build and run the tests
-# test: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
-# test: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
+test: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
+test: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
 test: CCFLAGS += -pthread
 test: LDFLAGS += -pthread
 test: test_build

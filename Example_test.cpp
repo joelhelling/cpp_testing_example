@@ -11,7 +11,14 @@ protected:
   Example example{test_val};
 };
 
-TEST_F(ExampleTest, basicTest)
+TEST_F(ExampleTest, testGetVal)
 {
   EXPECT_EQ(test_val, example.get_val());
+}
+
+TEST_F(ExampleTest, testSetVal)
+{
+  int val = test_val + 1;
+  example.set_val(val);
+  EXPECT_EQ(val, example.get_val());
 }
