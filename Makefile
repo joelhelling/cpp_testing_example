@@ -178,7 +178,7 @@ $(PROG): $(OBJS)
 	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(OBJS) $(LINKEDOBJS) -o $(PROG)
 
 # rule to link tests
-$(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) gmock_main.a $(GTEST_HEADERS) $(GMOCK_HEADERS)
+$(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) $(GTEST_HEADERS) $(GMOCK_HEADERS) gmock_main.a
 	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) gmock_main.a $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
 
 # rule to compile object files and automatically generate dependency files

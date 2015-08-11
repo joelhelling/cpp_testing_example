@@ -2,20 +2,20 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-using ::testing::Return;
+using testing::Return;
 
 class VirtualClassMock : public Virtual_class {
 public:
   MOCK_CONST_METHOD0(some_function, int());
 };
 
-class ThingTest : public testing::Test {
+class Thing_test : public testing::Test {
 protected:
   Thing thing;
   VirtualClassMock virtualClassMock;
 };
 
-TEST_F(ThingTest, testDoSomething)
+TEST_F(Thing_test, testDoSomething)
 {
   int val = 10;
   ON_CALL(virtualClassMock, some_function())
