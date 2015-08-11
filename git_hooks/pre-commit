@@ -5,7 +5,9 @@ set -e
 # git hooks directory
 DIR=$(pwd)'/git_hooks/'
 
+# run tests
 $DIR'run_tests.sh'
 
-# run tests and check code coverage
+# check code coverage
+printf "\nGenerating code coverage reports\n"
 $DIR'check_code_coverage.sh'
