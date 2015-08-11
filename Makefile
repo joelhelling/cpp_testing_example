@@ -87,8 +87,10 @@ test_build: $(TEST_PROG)
 test_run:
 	./$(TEST_PROG)
 
+# run tests then generate code coverage report
+test_and_generate_code_coverage_report: test
+test_and_generate_code_coverage_report: generate_code_coverage_report
 # generate code coverage reports
-generate_code_coverage_report: test
 generate_code_coverage_report: generate_code_coverage_report_xml
 generate_code_coverage_report: generate_code_coverage_report_html
 # generate a report in xml

@@ -24,8 +24,8 @@ hxselect body table tbody tr td table tbody tr td.headerTableEntry < gcovr-repor
 
 # remove the files created by this script
 function clean {
-  rm coverage_percentages.txt
   rm gcovr-report_normalized.html
+  rm coverage_percentages.txt
 }
 
 # compare two lines of the coverage_percentages.txt
@@ -53,8 +53,8 @@ function line_compare {
   fi
 }
 
-line_compare 1 2
-line_compare 4 5
+line_compare 1 2 # lines
+line_compare 4 5 # branches
 
 clean
 

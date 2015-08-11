@@ -1,7 +1,11 @@
 #!/bin/bash
 
+set -e
+
 # git hooks directory
 DIR=$(pwd)'/git_hooks/'
+
+$DIR'run_tests.sh'
 
 # run tests and check code coverage
 $DIR'check_code_coverage.sh'
