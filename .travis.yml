@@ -1,4 +1,4 @@
-install: ./install_dependencies.sh
+install: make get_test_dependencies
 language: cpp
 compiler:
   - clang
