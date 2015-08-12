@@ -61,8 +61,6 @@ CODE_COVERAGE_EXCLUDE_FILES += -e 'gmock/'
 SETUP_SCRIPT := setup.sh
 # name of the get test dependencies script
 GET_TEST_DEPENDENCIES_SCRIPT := get_test_dependencies.sh
-# update build tools script
-UPDATE_BUILD_TOOLS_SCRIPT := update_build_tools.sh
 
 # use quiet output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
@@ -201,11 +199,6 @@ endef
 # include dependency files
 -include $(DEPS)
 -include $(TEST_DEPS)
-
-.PHONY: update_build_tools
-update_build_tools:
-	chmod +x $(UPDATE_BUILD_TOOLS_SCRIPT)
-	./$(UPDATE_BUILD_TOOLS_SCRIPT)
 
 .PHONY: setup
 setup:
