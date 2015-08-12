@@ -1,5 +1,5 @@
 before_install:
-  - make update_build_tools
+  - ./update_build_tools.sh
 install:
   - make get_test_dependencies
 language: cpp
