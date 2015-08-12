@@ -1,4 +1,4 @@
-install: install_dependencies.sh
+install: ./install_dependencies.sh
 language: cpp
 compiler:
   - clang

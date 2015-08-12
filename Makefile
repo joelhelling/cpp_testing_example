@@ -59,7 +59,8 @@ CODE_COVERAGE_EXCLUDE_FILES += -e 'gmock/'
 
 # name of the install shell script
 SETUP_SCRIPT := setup.sh
-
+# name of the get test dependencies script
+GET_TEST_DEPENDENCIES_SCRIPT := get_test_dependencies.sh
 
 # use quiet output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
@@ -203,6 +204,11 @@ endef
 setup:
 	chmod +x $(SETUP_SCRIPT)
 	./$(SETUP_SCRIPT)
+
+.PHONY: get_test_dependencies
+get_test_dependencies:
+	chmod +x $(GET_TEST_DEPENDENCIES_SCRIPT)
+	./$(GET_TEST_DEPENDENCIES_SCRIPT)
 
 # clean up targets
 .PHONY: clean cleanObj cleanAllObj cleanTests cleanAllExceptMainExec cleanAll cleanCodeCoverage
