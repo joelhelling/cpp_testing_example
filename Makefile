@@ -57,10 +57,14 @@ CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'
 CODE_COVERAGE_EXCLUDE_FILES += -e '.test/'
 CODE_COVERAGE_EXCLUDE_FILES += -e 'gmock/'
 
+# scipts directory
+SCRIPTS_DIR := scripts
 # name of the install shell script
-SETUP_SCRIPT := setup.sh
+SETUP_SCRIPT := $(SCRIPTS_DIR)/setup.sh
 # name of the get test dependencies script
-GET_TEST_DEPENDENCIES_SCRIPT := get_test_dependencies.sh
+GET_TEST_DEPENDENCIES_SCRIPT := $(SCRIPTS_DIR)/get_test_dependencies.sh
+# remove sample code script
+REMOVE_SAMPLE_CODE_SCRIPT := $(SCRIPTS_DIR)/remove_sample_code.sh
 
 # use quiet output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
@@ -204,6 +208,11 @@ endef
 setup:
 	chmod +x $(SETUP_SCRIPT)
 	./$(SETUP_SCRIPT)
+
+.PHONY: remove_sample_code
+remove_sample_code:
+	chmod +x $(REMOVE_SAMPLE_CODE_SCRIPT)
+	./$(REMOVE_SAMPLE_CODE_SCRIPT)
 
 .PHONY: get_test_dependencies
 get_test_dependencies:
