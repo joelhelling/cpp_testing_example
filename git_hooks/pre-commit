@@ -3,11 +3,14 @@
 set -e
 
 # git hooks directory
-DIR=$(pwd)'/git_hooks/'
+GIT_HOOKS_DIR=$(pwd)'/git_hooks/'
+
+# fix whitespace
+$GIT_HOOKS_DIR'check_whitespace.sh'
 
 # run tests
-$DIR'run_tests.sh'
+$GIT_HOOKS_DIR'run_tests.sh'
 
 # check code coverage
 printf "\nGenerating code coverage reports\n"
-$DIR'check_code_coverage.sh'
+$GIT_HOOKS_DIR'check_code_coverage.sh'
