@@ -34,7 +34,7 @@ do
     if grep -q "[[:blank:]]$" $f
       then
       printf "    $f\t remove trailing whitespace(s)\n"
-      sed -i -e "s/[[:space:]]\+$//g" $f
+      sed -i -e "s/[[:blank:]]\+$//g" $f
       git add $f
     fi
   fi
