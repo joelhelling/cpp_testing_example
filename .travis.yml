@@ -7,7 +7,7 @@ addons:
 install:
   - make get_test_dependencies
 before_script:
-  - if [ $CXX == "g++"]; then export CXX=g++-4.8; fi
+  - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 language: cpp
 compiler:
   - clang
