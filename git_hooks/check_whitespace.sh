@@ -1,21 +1,9 @@
 #!/bin/bash
 #
-# An example hook script to verify what is about to be committed.
-# Called by "git commit" with no arguments.  The hook should
-# exit with non-zero status after issuing an appropriate message if
-# it wants to stop the commit.
-#
-# Usage:
-# Remove the .sh file extension when you put the script in your hooks folder!
-#
-# Purposes:
 # Add an empty line at the end of the file.
 # Remove trailing spaces at the end of a line.
 #
-# Source: http://eng.wealthfront.com/2011/03/corrective-action-with-gits-pre-commit.html
-# Version: 2011-03-08
-# Related: http://stackoverflow.com/questions/13223868/how-to-stage-line-by-line-in-git-gui-although-no-newline-at-end-of-file-warnin
-
+# based on: https://gist.github.com/johnjohndoe/4024222
 
 # Files (not deleted) in the index
 files=$(git diff HEAD --name-only | grep -v ^D)
