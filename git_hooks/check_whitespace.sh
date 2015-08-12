@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
@@ -8,39 +8,34 @@
 # Usage:
 # Remove the .sh file extension when you put the script in your hooks folder!
 #
-# Purposes: 
+# Purposes:
 # Add an empty line at the end of the file.
 # Remove trailing spaces at the end of a line.
-# 
+#
 # Source: http://eng.wealthfront.com/2011/03/corrective-action-with-gits-pre-commit.html
 # Version: 2011-03-08
 # Related: http://stackoverflow.com/questions/13223868/how-to-stage-line-by-line-in-git-gui-although-no-newline-at-end-of-file-warnin
 
 
-echo 'test'
 # Files (not deleted) in the index
-files=$(git diff-index --name-status --cached HEAD | grep -v ^D | cut -c3-)
-if [ "$files" != "" ]
-then
-  for f in $files
-  do
-
-    # Only examine known text files
-    if [ echo "$f" | egrep -q "[.](conf|css|erb|html|js|json|log|properties|rb|ru|txt|xml|yml|h|m|cpp|c|cc|h|scss|sh)$"]
+files=$(git diff HEAD --name-only | grep -v ^D)
+for f in $files
+do
+  if [[ "$f" =~ [.](conf|css|erb|html|js|json|log|properties|rb|ru|txt|xml|yml|h|m|cpp|c|cc|sh)$ ]]
     then
-      # Add a linebreak to the file if it doesn't have one
-      if [ "$(tail -c1 $f)" != '\n' ]
+    # Add a linebreak to the file if it doesn't have one
+    if [ "$(tail -c 1 $f)" != "" ]
       then
-        echo >> $f
-        git add $f
-      fi
-
-      # Remove trailing whitespace if it exists
-      if grep -q "[[:blank:]]$" $f
-      then
-        sed -i "" -e $'s/[ \t]*$//g' $f
-        git add $f
-      fi
+      printf "    $f\t add newline\n"
+      sed -i -e '$a\' $f
+      git add $f
     fi
-  done
-fi
+    # Remove trailing whitespace if it exists
+    if grep -q "[[:blank:]]$" $f
+      then
+      printf "    $f\t remove trailing whitespace(s)\n"
+      sed -i -e "s/[[:space:]]\+$//g" $f
+      git add $f
+    fi
+  fi
+done

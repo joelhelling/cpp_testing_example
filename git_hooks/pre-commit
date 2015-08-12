@@ -6,9 +6,11 @@ set -e
 GIT_HOOKS_DIR=$(pwd)'/git_hooks/'
 
 # fix whitespace
+printf "\nCleaning up trailing whitespace and adding missing newlines\n"
 $GIT_HOOKS_DIR'check_whitespace.sh'
 
 # run tests
+printf "\nRunning tests\n"
 $GIT_HOOKS_DIR'run_tests.sh'
 
 # check code coverage
