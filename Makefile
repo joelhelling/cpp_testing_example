@@ -202,11 +202,6 @@ endef
 -include $(DEPS)
 -include $(TEST_DEPS)
 
-.PHONY: update_build_tools
-update_build_tools:
-	chmod +x $(UPDATE_BUILD_TOOLS_SCRIPT)
-	./$(UPDATE_BUILD_TOOLS_SCRIPT)
-
 .PHONY: setup
 setup:
 	chmod +x $(SETUP_SCRIPT)
