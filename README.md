@@ -96,8 +96,20 @@ run the tests and check code coverage. If any tests fail or the code coverage
 percentage is below the minimum required, git will abort the commit.
 
 
+Continuous Integration with Travis CI
+-------------------------------------
+1. Setup an account at https://travis-ci.org/
+2. Wait for Travis to sync with your github repositories
+3. Turn on Travis for your repo at https://travis-ci.org/profile/<github username>
+4. Modify .travis.yml as desired
+5. Commit changes
+6. Push changes to github
+7. Update the Travis badge in the README by following the instructions [here](http://docs.travis-ci.com/user/status-images/)
+
+
 References
 ----------
 [Google Test](https://code.google.com/p/googletest/)  
 [Google Mock](https://code.google.com/p/googlemock/)  
 [Code Coverage](http://gcovr.com/)  
+[Travis CI](http://docs.travis-ci.com/)  
