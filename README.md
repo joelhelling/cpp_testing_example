@@ -12,7 +12,11 @@ Features
 - Continuous Integration with Travis CI
 - Sample Makefile
 - Sample test cases
-- A pre-commit git hook to run all the tests and check code coverage
+- A pre-commit git hooks
+  - Remove trailing whitespace
+  - Add missing newlines
+  - Run tests
+  - Check code coverage
 
 
 Install
