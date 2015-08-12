@@ -3,9 +3,9 @@ GTEST_DIR := gtest
 GMOCK_DIR := gmock
 
 # compiler
-CC := g++
+# CC := g++
 # linker
-LD := g++
+# LD := g++
 # preprocessor flags
 CPPFLAGS := -isystem $(GMOCK_DIR)/include -isystem $(GTEST_DIR)/include
 # main compiler flags
@@ -64,7 +64,7 @@ SETUP_SCRIPT := setup.sh
 # use quiet output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
 ifndef V
-	QUIET_CC		= @echo '   ' CC $@;
+	QUIET_CXX		= @echo '   ' CC $@;
 	QUIET_LINK		= @echo '   ' LD $@;
 	QUIET_CODE_COVERAGE = @echo '    ' $@;
 	export V
@@ -75,6 +75,7 @@ endif
 all: $(PROG)
 
 # build and run the tests
+.PHONY: test
 test: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
 test: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
 test: CCFLAGS += -pthread
@@ -140,11 +141,11 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
 gtest-all.o : $(GTEST_SRCS_)
-	$(QUIET_CC)$(CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
+	$(QUIET_CXX)$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest-all.cc
 
 gtest_main.o : $(GTEST_SRCS_)
-	$(QUIET_CC)$(CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
+	$(QUIET_CXX)$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest_main.cc
 
 gtest.a : gtest-all.o
@@ -161,11 +162,11 @@ GMOCK_HEADERS = $(GMOCK_DIR)/include/gmock/*.h \
 GMOCK_SRCS_ = $(GMOCK_DIR)/src/*.cc $(GMOCK_HEADERS)
 
 gmock-all.o : $(GMOCK_SRCS_)
-	$(QUIET_CC)$(CC) $(CPPFLAGS) -I$(GTEST_DIR) -I$(GMOCK_DIR) $(CXXFLAGS) \
+	$(QUIET_CXX)$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) -I$(GMOCK_DIR) $(CXXFLAGS) \
             -c $(GMOCK_DIR)/src/gmock-all.cc
 
 gmock_main.o : $(GMOCK_SRCS_)
-	$(QUIET_CC)$(CC) $(CPPFLAGS) -I$(GTEST_DIR) -I$(GMOCK_DIR) $(CXXFLAGS) \
+	$(QUIET_CXX)$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) -I$(GMOCK_DIR) $(CXXFLAGS) \
             -c $(GMOCK_DIR)/src/gmock_main.cc
 
 gmock.a : gmock-all.o gtest-all.o
@@ -177,15 +178,15 @@ gmock_main.a : gmock-all.o gtest-all.o gmock_main.o
 
 # rule to link program
 $(PROG): $(OBJS)
-	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(OBJS) $(LINKEDOBJS) -o $(PROG)
+	$(QUIET_LINK)$(CXX) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(OBJS) $(LINKEDOBJS) -o $(PROG)
 
 # rule to link tests
 $(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) $(GTEST_HEADERS) $(GMOCK_HEADERS) gmock_main.a
-	$(QUIET_LINK)$(LD) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) gmock_main.a $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
+	$(QUIET_LINK)$(CXX) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) gmock_main.a $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
 
 # rule to compile object files and automatically generate dependency files
 define cc-command
-	$(QUIET_CC)$(CC) $(CCFLAGS) $(ECCFLAGS) $(CPPFLAGS) -c $< -MMD > $*.d
+	$(QUIET_CXX)$(CXX) $(CCFLAGS) $(ECCFLAGS) $(CPPFLAGS) -c $< -MMD > $*.d
 endef
 # compile .c files
 .c.o:

@@ -1,0 +1,5 @@
+install: install_dependencies.sh
+language: cpp
+compiler:
+  - clang
+  - gcc
