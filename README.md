@@ -1,5 +1,7 @@
 CPP Testing Example
 ===================
+[![Build Status](https://travis-ci.org/spencewenski/cpp_testing_example.svg?branch=master)](https://travis-ci.org/spencewenski/cpp_testing_example)
+
 This is an example of how to set up Google testing frameworks for a project.
 
 Features
