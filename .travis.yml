@@ -1,4 +1,4 @@
-before_install: update_build_tools
+before_install: make update_build_tools
 install: make get_test_dependencies
 language: cpp
 compiler:
