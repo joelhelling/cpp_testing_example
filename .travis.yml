@@ -1,5 +1,14 @@
-before_install: make update_build_tools
-install: make get_test_dependencies
+before_install:
+  - make update_build_tools
+  # g++4.8.1
+  - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+
+  - sudo apt-get update -qq
+install:
+  - make get_test_dependencies
+  -  # g++4.8.1
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
 language: cpp
 compiler:
   - clang
