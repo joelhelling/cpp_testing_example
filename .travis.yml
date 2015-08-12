@@ -1,7 +1,8 @@
 before_install:
-  - ./update_build_tools.sh
+  - make update_build_tools
 install:
   - make get_test_dependencies
+sudo: required
 language: cpp
 compiler:
   - clang
