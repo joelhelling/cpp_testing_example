@@ -1,4 +1,5 @@
-install: make get_test_dependencies
+install: make travis_setup
+sudo: required
 language: cpp
 compiler:
   - clang

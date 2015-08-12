@@ -205,8 +205,8 @@ setup:
 	chmod +x $(SETUP_SCRIPT)
 	./$(SETUP_SCRIPT)
 
-.PHONY: get_test_dependencies
-get_test_dependencies:
+.PHONY: travis_setup
+travis_setup:
 	chmod +x $(GET_TEST_DEPENDENCIES_SCRIPT)
 	./$(GET_TEST_DEPENDENCIES_SCRIPT)
 
