@@ -9,6 +9,7 @@ Features
 - Testing Support (Google Test)
 - Mocking support (Google Mock)
 - Code coverage support
+- Continuous Integration with Travis CI
 - Sample Makefile
 - Sample test cases
 - A pre-commit git hook to run all the tests and check code coverage
