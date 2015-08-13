@@ -17,4 +17,4 @@ script:
   - make test
 after_success:
   - make run_gcov
-  - coveralls -n
+  - coveralls -x gcov -n
