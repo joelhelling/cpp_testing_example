@@ -7,7 +7,8 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - g++-4.8
+    - g++-4.9
+    - ggcov
 install:
   - sudo pip install cpp-coveralls
   - make get_test_dependencies
