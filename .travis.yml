@@ -17,9 +17,10 @@ install:
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 after_success:
-  # - lcov -r gmock/ -r gtest/ -r test --compat-libtool --directory . --capture --output-file coverage.info
-  # - cat coverage.info
-  # - coveralls-lcov coverage.info
-  - bash scripts/get_code_coverage_dependencies.sh
-  - make generate_code_coverage_report_xml
-  - coveralls-lcov gcovr-report.xml
+  - lcov -r "(gmock/|gtest/|test)" --compat-libtool --directory . --capture --output-file coverage.info
+  - lcov --compat-libtool --directory . --capture --output-file coverage2.info
+  - cat coverage2.info
+  - coveralls-lcov coverage2.info
+  # - bash scripts/get_code_coverage_dependencies.sh
+  # - make generate_code_coverage_report_xml
+  # - coveralls-lcov gcovr-report.xml
