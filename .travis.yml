@@ -8,8 +8,9 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-install:
+before_install:
   - pip install cpp-coveralls
+install:
   - make get_test_dependencies
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
