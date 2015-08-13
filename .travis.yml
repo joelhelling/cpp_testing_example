@@ -8,7 +8,6 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.9
-    - ggcov
 install:
   - sudo pip install cpp-coveralls
   - make get_test_dependencies
@@ -17,8 +16,5 @@ before_script:
 script:
   - make test
 after_success:
-  - gcov-4.9 --version
-  - g++ --version
   - make run_gcov
-  - ls /usr/bin | grep gcov
   - coveralls -n
