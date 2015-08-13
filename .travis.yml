@@ -1,14 +1,18 @@
+language: cpp
+compiler:
+  - clang
+  - gcc
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+before_install:
+  - sudo pip install cpp-coveralls
 install:
   - make get_test_dependencies
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
-language: cpp
-compiler:
-  - clang
-  - gcc
+after_success:
+  - coveralls -e lib -e tests -e submodules/ -e gmock/ -e .test/ --gcov-options '\-lp'
