@@ -6,7 +6,7 @@
 # based on: https://gist.github.com/johnjohndoe/4024222
 
 # Files (not deleted) in the index
-files=$(git diff HEAD --name-only | grep -v ^D)
+files=$(git diff --name-only HEAD | grep -v ^D)
 for f in $files
 do
   if [[ "$f" =~ [.](conf|css|erb|html|js|json|log|properties|rb|ru|txt|xml|yml|h|m|cpp|c|cc|sh)$ ]]

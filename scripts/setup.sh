@@ -4,7 +4,7 @@ SCRIPTS_DIR='scripts/'
 GIT_HOOKS_DIR='git_hooks/'
 
 # install submodules
-git submodule update --recursive
+# git submodule update --recursive
 # install pre-commit git hooks
 chmod +x $GIT_HOOKS_DIR'check_whitespace.sh'
 chmod +x $GIT_HOOKS_DIR'check_code_coverage.sh'
