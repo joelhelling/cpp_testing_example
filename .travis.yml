@@ -17,4 +17,4 @@ before_script:
 script:
   - make test
 after_success:
-  - coveralls --gcov-options '\-lp'
+  - coveralls -e test.cpp -e gtest/ -e gmock/ --gcov-options '\-lp'
