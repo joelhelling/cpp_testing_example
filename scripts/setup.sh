@@ -15,7 +15,6 @@ ln $GIT_HOOKS_DIR'pre-commit' .git/hooks/pre-commit
 chmod +x $SCRIPTS_DIR'get_test_dependencies.sh'
 ./$SCRIPTS_DIR'get_test_dependencies.sh'
 # install code coverage
-sudo apt-get install python-pip
-sudo pip install gcovr
+$SCRIPTS_DIR'get_code_coverage_dependencies.sh'
 # install tool for parsing code coverage html report
 sudo apt-get install html-xml-utils
