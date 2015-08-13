@@ -3,19 +3,19 @@ GTEST_DIR := gtest
 GMOCK_DIR := gmock
 
 # compiler
-# CC := g++
+CXX ?= g++
 # linker
-# LD := g++
+LD ?= g++
 # gcov
-GCOV := gcov-4.9
+GCOV ?= gcov
 # preprocessor flags
 CPPFLAGS := -isystem $(GMOCK_DIR)/include -isystem $(GTEST_DIR)/include
 # main compiler flags
-CCFLAGS := -std=c++11 -Wall -Wextra -pedantic -Wvla
+CXXFLAGS := -std=c++11 -Wall -Wextra -pedantic -Wvla
 # extra compiler flags
-ECCFLAGS := 
+EXXFLAGS := 
 # code coverage compile flags
-CODE_COVERAGE_CC_FLAGS := -coverage
+CODE_COVERAGE_CXX_FLAGS := -coverage
 # main linker flags
 LDFLAGS := -pedantic -Wall
 # extra linker flags
@@ -83,9 +83,9 @@ all: $(PROG)
 
 # build and run the tests
 .PHONY: test
-test: CCFLAGS += $(CODE_COVERAGE_CC_FLAGS)
+test: CXXFLAGS += $(CODE_COVERAGE_CXX_FLAGS)
 test: LDFLAGS += $(CODE_COVERAGE_LD_FLAGS)
-test: CCFLAGS += -pthread
+test: CXXFLAGS += -pthread
 test: LDFLAGS += -pthread
 test: test_build
 test: test_run
@@ -109,22 +109,22 @@ generate_code_coverage_report_html:
 	$(QUIET_CODE_COVERAGE)gcovr --branches -r . --html --html-details $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.html
 # run gcov on all the source files
 run_gcov:
-	$(GCOV) $(foreach source, $(SOURCES), $(source)) -lp
+	$(GCOV) $(foreach source, $(filter-out main.cpp, $(SOURCES)), $(source)) -lp
 
 # run the tests in debug mode
-test_debug: CCFLAGS += -g
+test_debug: CXXFLAGS += -g
 test_debug: test
 
 # compile the program in debug mode
-debug: CCFLAGS += -g
+debug: CXXFLAGS += -g
 debug: $(PROG)
 
 # run the tests with compiler optimization
-test_opt: CCFLAGS += -O3
+test_opt: CXXFLAGS += -O3
 test_opt: test
 
 # compile the program with compiler optimization
-opt: CCFLAGS += -O3
+opt: CXXFLAGS += -O3
 opt: $(PROG)
 
 # run the tests on release ready code
@@ -138,11 +138,11 @@ release: opt
 release: cleanAllExceptMainExec
 
 # run the tests for gprof profiling
-test_gprof: CCFLAGS += -g -pg
+test_gprof: CXXFLAGS += -g -pg
 test_gprof: test
 
 # compile the program for gprof profiling
-gprof: CCFLAGS += -g -pg
+gprof: CXXFLAGS += -g -pg
 gprof: $(PROG)
 
 # compile google test
@@ -196,7 +196,7 @@ $(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) $(GTEST_HEADERS) $(GMOCK_HEADERS) 
 
 # rule to compile object files and automatically generate dependency files
 define cc-command
-	$(QUIET_CXX)$(CXX) $(CCFLAGS) $(ECCFLAGS) $(CPPFLAGS) -c $< -MMD > $*.d
+	$(QUIET_CXX)$(CXX) $(CXXFLAGS) $(EXXFLAGS) $(CPPFLAGS) -c $< -MMD > $*.d
 endef
 # compile .c files
 .c.o:
