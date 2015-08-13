@@ -8,11 +8,14 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+    - lcov
 before_install:
   - sudo pip install cpp-coveralls
+  - gem install coveralls-lcov
 install:
   - make get_test_dependencies
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 after_success:
-  - coveralls -E test -e gtest/ -e gmock/ --no-gcov
+  - lcov --compat-libtool --directory . --capture --output-file coverage.info
+  - coveralls-lcov coverage.info
