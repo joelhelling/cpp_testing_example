@@ -10,10 +10,12 @@ Features
 - Testing Support (Google Test)
 - Mocking support (Google Mock)
 - Code coverage support
+  - Locally as a pre-commit hook
+  - And as a status badge using Travis CI and Coveralls
 - Continuous Integration with Travis CI
 - Sample Makefile
 - Sample test cases
-- A pre-commit git hooks
+- Pre-commit git hooks
   - Remove trailing whitespace
   - Add missing newlines
   - Run tests
