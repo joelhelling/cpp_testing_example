@@ -18,4 +18,7 @@ before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 after_success:
   - lcov -r gmock/ -r gtest/ -r test --compat-libtool --directory . --capture --output-file coverage.info
+  - cat coverage.info
   - coveralls-lcov coverage.info
+  - make generate_code_coverage_report_xml
+  - coveralls-lcov gcovr-report.xml
