@@ -15,4 +15,4 @@ install:
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 after_success:
-  - coveralls -e lib -e tests -e submodules/ -e gmock/ -e .test/ --gcov-options '\-lp'
+  - coveralls -e lib -e tests -e submodules/ -e gmock/ -e .test/ -e test --gcov-options '\-lp'
