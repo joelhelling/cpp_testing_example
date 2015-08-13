@@ -1,7 +1,6 @@
 CPP Testing Example
 ===================
 [![Build Status](https://travis-ci.org/spencewenski/cpp_testing_example.svg?branch=master)](https://travis-ci.org/spencewenski/cpp_testing_example)
-
 [![Coverage Status](https://coveralls.io/repos/spencewenski/cpp_testing_example/badge.svg?branch=master&service=github)](https://coveralls.io/github/spencewenski/cpp_testing_example?branch=master)
 
 This is an example of how to set up Google testing frameworks for a project.
