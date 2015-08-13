@@ -17,5 +17,8 @@ before_script:
 script:
   - make test
 after_success:
+  - gcov --version
+  - g++ --version
   - make run_gcov
+  - ls /usr/bin | grep gcov
   - coveralls -n
