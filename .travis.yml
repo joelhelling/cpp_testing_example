@@ -17,5 +17,5 @@ install:
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 after_success:
-  - lcov --compat-libtool --directory . --capture --output-file coverage.info
+  - lcov -r gmock/ -r gtest/ -r test --compat-libtool --directory . --capture --output-file coverage.info
   - coveralls-lcov coverage.info
