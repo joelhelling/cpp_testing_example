@@ -10,10 +10,10 @@ addons:
     - g++-4.8
 before_install:
   - sudo apt-get install lcov rubygems
-  - gem install lcoveralls
+  - gem install coveralls-gcov
 install:
   - make get_test_dependencies
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 after_success:
-  - lcoveralls
+  - coveralls-gcov --no-gcov
