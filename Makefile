@@ -6,6 +6,8 @@ GMOCK_DIR := gmock
 # CC := g++
 # linker
 # LD := g++
+# gcov
+GCOV := gcov-4.9
 # preprocessor flags
 CPPFLAGS := -isystem $(GMOCK_DIR)/include -isystem $(GTEST_DIR)/include
 # main compiler flags
@@ -107,7 +109,7 @@ generate_code_coverage_report_html:
 	$(QUIET_CODE_COVERAGE)gcovr --branches -r . --html --html-details $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.html
 # run gcov on all the source files
 run_gcov:
-	gcov $(foreach source, $(SOURCES), $(source)) -lp
+	$(GCOV) $(foreach source, $(SOURCES), $(source)) -lp
 
 # run the tests in debug mode
 test_debug: CCFLAGS += -g
