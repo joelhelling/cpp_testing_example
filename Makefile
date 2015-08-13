@@ -105,6 +105,9 @@ generate_code_coverage_report_xml:
 # generate a report in xml
 generate_code_coverage_report_html:
 	$(QUIET_CODE_COVERAGE)gcovr --branches -r . --html --html-details $(CODE_COVERAGE_EXCLUDE_FILES) -o gcovr-report.html
+# run gcov on all the source files
+run_gcov:
+	gcov $(foreach source, $(SOURCES), $(source)) -lp
 
 # run the tests in debug mode
 test_debug: CCFLAGS += -g

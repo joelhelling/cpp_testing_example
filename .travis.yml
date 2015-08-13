@@ -13,5 +13,5 @@ install:
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 after_success:
-  - gcov
+  - make run_gcov
   - bash <(curl -s https://codecov.io/bash)
