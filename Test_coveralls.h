@@ -3,7 +3,7 @@
 
 class Test_coveralls {
 public:
-  int get_val();
+  int get_val(int input);
 private:
   int val{10};
 };
