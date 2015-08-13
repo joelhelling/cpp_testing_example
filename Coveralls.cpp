@@ -1,6 +1,6 @@
-#include "Test_coveralls.h"
+#include "Coveralls.h"
 
-int Test_coveralls::get_val(int input)
+int Coveralls::get_val(int input)
 {
   if (input == 1) {
     return val;

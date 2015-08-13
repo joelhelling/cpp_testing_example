@@ -50,7 +50,7 @@ DEPS = $(OBJS:%.o=%.d)
 
 
 # code coverage files
-CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno gcovr-report*.html gcovr-report*.xml)
+CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno *.gcov gcovr-report*.html gcovr-report*.xml)
 # code coverage exclude files flags
 CODE_COVERAGE_EXCLUDE_FILES := $(foreach test_source, $(TEST_SOURCES),-e '$(test_source)')
 CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'
