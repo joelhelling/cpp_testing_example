@@ -11,16 +11,9 @@ addons:
     - lcov
 before_install:
   - sudo pip install cpp-coveralls
-  - gem install coveralls-lcov
 install:
   - make get_test_dependencies
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 after_success:
-  - lcov -r "(gmock/|gtest/|test)" --compat-libtool --directory . --capture --output-file coverage.info
-  - lcov --compat-libtool --directory . --capture --output-file coverage2.info
-  - cat coverage2.info
-  - coveralls-lcov coverage2.info
-  # - bash scripts/get_code_coverage_dependencies.sh
-  # - make generate_code_coverage_report_xml
-  # - coveralls-lcov gcovr-report.xml
+  - coveralls -e test -e gmock/ -e gtest/ -e /usr/ --gcov-options '\-lp'
