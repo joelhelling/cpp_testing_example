@@ -13,7 +13,7 @@ CCFLAGS := -std=c++11 -Wall -Wextra -pedantic -Wvla
 # extra compiler flags
 ECCFLAGS := 
 # code coverage compile flags
-CODE_COVERAGE_CC_FLAGS := -fprofile-arcs -ftest-coverage -fPIC -O0
+CODE_COVERAGE_CC_FLAGS := -coverage
 # main linker flags
 LDFLAGS := -pedantic -Wall
 # extra linker flags

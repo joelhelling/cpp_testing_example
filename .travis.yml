@@ -8,13 +8,13 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-before_install:
-  - sudo pip install cpp-coveralls
 install:
+  - pip install cpp-coveralls
   - make get_test_dependencies
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.8"; fi
 script:
   - make test
 after_success:
-  - coveralls -e '._test\.cpp' -e gtest/ -e gmock/ --gcov-options '\-lp'
+  - make run_gcov
+  - coveralls -n
