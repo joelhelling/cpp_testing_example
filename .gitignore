@@ -33,6 +33,7 @@
 *.d
 
 # Code coverage files
+*.gcov
 *.gcno
 *.gcda
 gcovr-report*.html
