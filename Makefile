@@ -19,11 +19,11 @@ CODE_COVERAGE_CXX_FLAGS := -coverage
 # main linker flags
 LDFLAGS := -pedantic -Wall
 # extra linker flags
-ELDFLAGS :=
+ELDFLAGS := -lGL -lGLU -lglut
 # code coverage linker flags
 CODE_COVERAGE_LD_FLAGS := -lgcov -coverage
 # libraries
-LIBS :=
+LIBS := -lGL -lGLU -lglut
 # erase files command
 RM := rm -f
 
