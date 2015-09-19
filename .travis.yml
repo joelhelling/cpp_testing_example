@@ -10,8 +10,6 @@ addons:
     - g++-4.9
 before_install:
   - pip install --user cpp-coveralls
-install:
-  - make get_test_dependencies
 before_script:
   - if [ $CXX == "g++" ]; then export CXX="g++-4.9"; export GCOV="gcov-4.9"; fi
 script:

@@ -15,6 +15,6 @@ ln $GIT_HOOKS_DIR'pre-commit' .git/hooks/pre-commit
 chmod +x $SCRIPTS_DIR'get_test_dependencies.sh'
 ./$SCRIPTS_DIR'get_test_dependencies.sh'
 # install code coverage
-$SCRIPTS_DIR'get_code_coverage_dependencies.sh'
+git submodule add https://github.com/google/googletest.git
 # install tool for parsing code coverage html report
 sudo apt-get install html-xml-utils
