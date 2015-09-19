@@ -1,6 +1,6 @@
 # google test directories
-GTEST_DIR := gtest
-GMOCK_DIR := gmock
+GTEST_DIR := googletest/googletest
+GMOCK_DIR := googletest/googlemock
 
 # compiler
 CXX ?= g++
@@ -13,7 +13,7 @@ CPPFLAGS := -isystem $(GMOCK_DIR)/include -isystem $(GTEST_DIR)/include
 # main compiler flags
 CXXFLAGS := -std=c++11 -Wall -Wextra -pedantic -Wvla
 # extra compiler flags
-EXXFLAGS := 
+EXXFLAGS :=
 # code coverage compile flags
 CODE_COVERAGE_CXX_FLAGS := -coverage
 # main linker flags
@@ -22,6 +22,8 @@ LDFLAGS := -pedantic -Wall
 ELDFLAGS :=
 # code coverage linker flags
 CODE_COVERAGE_LD_FLAGS := -lgcov -coverage
+# libraries
+LIBS :=
 # erase files command
 RM := rm -f
 
@@ -57,7 +59,8 @@ CODE_COVERAGE_FILES := $(wildcard *.gcda *.gcno *.gcov gcovr-report*.html gcovr-
 CODE_COVERAGE_EXCLUDE_FILES := $(foreach test_source, $(TEST_SOURCES),-e '$(test_source)')
 CODE_COVERAGE_EXCLUDE_FILES += -e 'submodules/'
 CODE_COVERAGE_EXCLUDE_FILES += -e '.test/'
-CODE_COVERAGE_EXCLUDE_FILES += -e 'gmock/'
+CODE_COVERAGE_EXCLUDE_FILES += -e $(GTEST_DIR)/
+CODE_COVERAGE_EXCLUDE_FILES += -e $(GMOCK_DIR)/
 
 # scipts directory
 SCRIPTS_DIR := scripts
@@ -188,11 +191,11 @@ gmock_main.a : gmock-all.o gtest-all.o gmock_main.o
 
 # rule to link program
 $(PROG): $(OBJS)
-	$(QUIET_LINK)$(CXX) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(OBJS) $(LINKEDOBJS) -o $(PROG)
+	$(QUIET_LINK)$(CXX) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) $(OBJS) $(LINKEDOBJS) -o $(PROG) $(LIBS)
 
 # rule to link tests
 $(TEST_PROG): $(OBJS_MINUS_MAIN) $(TEST_OBJS) $(GTEST_HEADERS) $(GMOCK_HEADERS) gmock_main.a
-	$(QUIET_LINK)$(CXX) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) gmock_main.a $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG)
+	$(QUIET_LINK)$(CXX) $(LDFLAGS) $(CPPFLAGS) $(ELDFLAGS) gmock_main.a $(TEST_OBJS) $(OBJS_MINUS_MAIN) $(LINKEDOBJS) -o $(TEST_PROG) $(LIBS)
 
 # rule to compile object files and automatically generate dependency files
 define cc-command
